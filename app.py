@@ -57,7 +57,7 @@ def callback():
 ##### 基本上程式編輯都在這個function #####
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = text=event.message.text
+    #message = text=event.message.text
     if re.match('告訴我秘密',message):
         image_message = ImageSendMessage(
             original_content_url='https://maruko.tw/wp-content/uploads/flickr/48727790946_2f625f443d_b.jpg',
