@@ -131,8 +131,7 @@ def handle_message(event):
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
         
-def sendImgCarousel(event):
-    try:
+    if re.match('圖片輪盤',message):
         message = TemplateSendMessage(
             alt_text = '圖片轉盤樣板',
             template = ImageCarouselTemplate(
@@ -159,11 +158,11 @@ def sendImgCarousel(event):
         )
       
         line_bot_api.reply_message(event.reply_token,message)
-    except:
+    else:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤!'))
 
 def sendBack_sell(event, backdata):
-    try:
+    if re.match('選擇披薩',message):
         message = TextSendMessage(
             text = '你選擇的是'+backdata.get('item')
         )
