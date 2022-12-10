@@ -35,33 +35,14 @@ line_bot_api.push_message('U260423b736b8f83bfc9ae5196a8b20a5', TextSendMessage(t
  @handler.add(MessageEvent, message=TextMessage)
  def handle_message(event):
      message = text=event.message.text
-     if re.match('告訴我秘密',message):
-         buttons_template_message = TemplateSendMessage(
-         alt_text='這個看不到',
-         template=ButtonsTemplate(
-             thumbnail_image_url='https://i.imgur.com/wpM584d.jpg',
-             title='行銷搬進大程式',
-             text='選單功能－TemplateSendMessage',
-             actions=[
-                 PostbackAction(
-                     label='偷偷傳資料',
-                     display_text='檯面上',
-                     data='action=檯面下'
-                 ),
-                 MessageAction(
-                     label='光明正大傳資料',
-                     text='我就是資料'
-                 ),
-                 URIAction(
-                     label='行銷搬進大程式',
-                     uri='https://marketingliveincode.com/'
-                 )
-             ]
-         )
-     )
-         line_bot_api.reply_message(event.reply_token, buttons_template_message)
-     else:
-         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+if re.match('告訴我秘密',message):
+        image_message = ImageSendMessage(
+            original_content_url='https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-bluehost-v1-0-9%2F659%2F790659%2FAtmP8Pmy%2F9c8c1e647eb14e01898043c0c60bf03a&methods=resize%2C1000%2C5000',
+            preview_image_url='https://images.builderservices.io/s/cdn/v1.0/i/m?url=https%3A%2F%2Fstorage.googleapis.com%2Fproduction-bluehost-v1-0-9%2F659%2F790659%2FAtmP8Pmy%2Ffd2258c5ea6c43f591e8d9930d152b94&methods=resize%2C1000%2C5000'
+        )
+        line_bot_api.reply_message(event.reply_token, image_message)
+    else:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
  # 主程式
  import os
  if name == "main":
