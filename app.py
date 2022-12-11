@@ -130,46 +130,6 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
-        
-    if re.match('圖片輪盤',message):
-        message = TemplateSendMessage(
-            alt_text = '圖片轉盤樣板',
-            template = ImageCarouselTemplate(
-                columns = [
-                    ImageCarouselColumn(
-                    image_url='https://i.imgur.com/pRdaAmS.jpg',
-                        action = PostbackTemplateAction(
-                            label='選擇披薩',
-                            text='選擇披薩',
-                            data='action=sell&item=披薩'
-                        )
-                    ),
-                    ImageCarouselColumn(
-                    image_url='https://i.imgur.com/MyLoA5d.jpg',
-                        action = PostbackTemplateAction(
-                            label='選擇飲料',
-                            text='選擇飲料',
-                            data='action=sell&item=飲料'
-                        )
-                    )
-                ]
-            )
-              
-        )
-      
-        line_bot_api.reply_message(event.reply_token,message)
-    else:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤!'))
-
-def sendBack_sell(event, backdata):
-    if re.match('選擇披薩',message):
-        message = TextSendMessage(
-            text = '你選擇的是'+backdata.get('item')
-        )
-        
-        line_bot_api.reply_message(event.reply_token,message)
-    except:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='發生錯誤!'))
 
 #主程式
 import os
