@@ -48,6 +48,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
+    postBack = event.postback.data
     if re.match('咖啡廳輪盤',message):
         image_carousel_template_message = TemplateSendMessage(
             alt_text='咖啡廳輪盤',
@@ -80,7 +81,33 @@ def handle_message(event):
             )
         )
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
-   
+        
+        if postBack == '我選第三張':
+            buttons_template_message = TemplateSendMessage(
+            alt_text='A餐廳',
+            template=ButtonsTemplate(
+                thumbnail_image_url='https://doqvf81n9htmm.cloudfront.net/data/Luke1226_165/2020-02/%E5%92%96%E5%95%A1%E5%BB%B3/%E5%8F%B0%E5%8C%97%E7%99%AE%E5%92%96%E5%95%A1_40a.jpg',
+                title='台北癮咖啡',
+                text='',
+                actions=[
+                    PostbackAction(
+                        label='偷偷傳資料',
+                        display_text='檯面上',
+                        data='action=檯面下'
+                    ),
+                    MessageAction(
+                        label='光明正大傳資料',
+                        text='我就是資料'
+                    ),
+                    URIAction(
+                        label='行銷搬進大程式',
+                        uri='https://marketingliveincode.com/'
+                    )
+                ]
+            )
+        )
+            line_bot_api.reply_message(event.reply_token, buttons_template_message)
+
     elif re.match('我選第一張',message):
         buttons_template_message = TemplateSendMessage(
         alt_text='A餐廳',
@@ -109,34 +136,6 @@ def handle_message(event):
         
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
-        
-def handle_postback(event):
-    postBack = event.postback.data
-    if postBack == '我選第三張':
-        buttons_template_message = TemplateSendMessage(
-        alt_text='A餐廳',
-        template=ButtonsTemplate(
-            thumbnail_image_url='https://doqvf81n9htmm.cloudfront.net/data/Luke1226_165/2020-02/%E5%92%96%E5%95%A1%E5%BB%B3/%E5%8F%B0%E5%8C%97%E7%99%AE%E5%92%96%E5%95%A1_40a.jpg',
-            title='台北癮咖啡',
-            text='',
-            actions=[
-                PostbackAction(
-                    label='偷偷傳資料',
-                    display_text='檯面上',
-                    data='action=檯面下'
-                ),
-                MessageAction(
-                    label='光明正大傳資料',
-                    text='我就是資料'
-                ),
-                URIAction(
-                    label='行銷搬進大程式',
-                    uri='https://marketingliveincode.com/'
-                )
-            ]
-        )
-    )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)
 
 #主程式
 import os
