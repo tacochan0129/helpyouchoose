@@ -107,12 +107,17 @@ def handle_message(event):
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
         
-    elif data=='action=喜歡C餐廳':
+    else:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+        
+def handle_postback(event):
+    postBack = event.postback.data
+    if postBack == '我選第三張':
         buttons_template_message = TemplateSendMessage(
-        alt_text='C餐廳',
+        alt_text='A餐廳',
         template=ButtonsTemplate(
-            thumbnail_image_url='https://live.staticflickr.com/65535/52028350813_4ec4a84ea6_c.jpg?v=pixnet-flickr-app-version',
-            title='Miracle Coffee東區',
+            thumbnail_image_url='https://doqvf81n9htmm.cloudfront.net/data/Luke1226_165/2020-02/%E5%92%96%E5%95%A1%E5%BB%B3/%E5%8F%B0%E5%8C%97%E7%99%AE%E5%92%96%E5%95%A1_40a.jpg',
+            title='台北癮咖啡',
             text='',
             actions=[
                 PostbackAction(
@@ -132,9 +137,6 @@ def handle_message(event):
         )
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
-        
-    else:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
 #主程式
 import os
