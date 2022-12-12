@@ -57,7 +57,7 @@ def handle_message(event):
                         image_url='https://doqvf81n9htmm.cloudfront.net/data/Luke1226_165/2020-02/%E5%92%96%E5%95%A1%E5%BB%B3/%E5%8F%B0%E5%8C%97%E7%99%AE%E5%92%96%E5%95%A1_40a.jpg',
                         action=PostbackAction(
                             label='選這個！',
-                            display_text='我選第一張！',
+                            display_text='我選第一張',
                             data='action=喜歡Ａ餐廳'
                         )
                     ),
@@ -65,7 +65,7 @@ def handle_message(event):
                         image_url='https://wowlavie-aws.hmgcdn.com/file/article_all/%E5%A4%A7%E7%A8%BB%E5%9F%95%E3%80%8CTWATUTIA%E3%80%8D%E5%92%96%E5%95%A1%E5%BB%B31.jpg',
                         action=PostbackAction(
                             label='選這個',
-                            display_text='我選第二張！',
+                            display_text='我選第二張',
                             data='action=喜歡Ｂ餐廳'
                         )
                     ),
@@ -73,7 +73,7 @@ def handle_message(event):
                         image_url='https://live.staticflickr.com/65535/52028350813_4ec4a84ea6_c.jpg?v=pixnet-flickr-app-version',
                         action=PostbackAction(
                             label='選這個！',
-                            display_text='我選第三張！',
+                            display_text='我選第三張',
                             data='action=喜歡Ｃ餐廳'
                         )
                     )
@@ -82,7 +82,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
    
-    elif re.match('我選第一張!',message):
+    elif re.match('我選第一張',message):
         buttons_template_message = TemplateSendMessage(
         alt_text='這個看不到',
         template=ButtonsTemplate(
