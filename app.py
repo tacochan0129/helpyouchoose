@@ -58,6 +58,7 @@ def handle_message(event):
                         action=MessageAction(
                             label='選這個！',
                             text='我選第一張'
+                        )
                     ),
                     ImageCarouselColumn(
                         image_url='https://wowlavie-aws.hmgcdn.com/file/article_all/%E5%A4%A7%E7%A8%BB%E5%9F%95%E3%80%8CTWATUTIA%E3%80%8D%E5%92%96%E5%95%A1%E5%BB%B31.jpg',
