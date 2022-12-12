@@ -49,59 +49,38 @@ def callback():
 def handle_message(event):
     message = text=event.message.text
     if re.match('咖啡廳輪盤',message):
-        carousel_template_message = TemplateSendMessage(
-            alt_text='免費教學影片',
-            template=CarouselTemplate(
+        image_carousel_template_message = TemplateSendMessage(
+            alt_text='咖啡廳輪盤',
+            template=ImageCarouselTemplate(
                 columns=[
-                    CarouselColumn(
-                        thumbnail_image_url='https://i.imgur.com/wpM584d.jpg',
-                        title='Python基礎教學',
-                        text='萬丈高樓平地起',
-                        actions=[
-                            MessageAction(
-                                label='教學內容',
-                                text='拆解步驟詳細介紹安裝並使用Anaconda、Python、Spyder、VScode…'
-                            ),
-                            URIAction(
-                                label='馬上查看',
-                                uri='https://marketingliveincode.com/?page_id=270'
-                            )
-                        ]
+                    ImageCarouselColumn(
+                        image_url='https://doqvf81n9htmm.cloudfront.net/data/Luke1226_165/2020-02/%E5%92%96%E5%95%A1%E5%BB%B3/%E5%8F%B0%E5%8C%97%E7%99%AE%E5%92%96%E5%95%A1_40a.jpg',
+                        action=PostbackAction(
+                            label='選這個！',
+                            display_text='我選第一張！',
+                            data='action=喜歡Ａ餐廳'
+                        )
                     ),
-                    CarouselColumn(
-                        thumbnail_image_url='https://i.imgur.com/W7nI6fg.jpg',
-                        title='Line Bot聊天機器人',
-                        text='台灣最廣泛使用的通訊軟體',
-                        actions=[
-                            MessageAction(
-                                label='教學內容',
-                                text='Line Bot申請與串接'
-                            ),
-                            URIAction(
-                                label='馬上查看',
-                                uri='https://marketingliveincode.com/?page_id=2532'
-                            )
-                        ]
+                    ImageCarouselColumn(
+                        image_url='https://wowlavie-aws.hmgcdn.com/file/article_all/%E5%A4%A7%E7%A8%BB%E5%9F%95%E3%80%8CTWATUTIA%E3%80%8D%E5%92%96%E5%95%A1%E5%BB%B31.jpg',
+                        action=PostbackAction(
+                            label='選這個',
+                            display_text='我選第二張！',
+                            data='action=喜歡Ｂ餐廳'
+                        )
                     ),
-                    CarouselColumn(
-                        thumbnail_image_url='https://i.imgur.com/l7rzfIK.jpg',
-                        title='Telegram Bot聊天機器人',
-                        text='唯有真正的方便，能帶來意想不到的價值',
-                        actions=[
-                            MessageAction(
-                                label='教學內容',
-                                text='Telegrame申請與串接'
-                            ),
-                            URIAction(
-                                label='馬上查看',
-                                uri='https://marketingliveincode.com/?page_id=2648'
-                            )
-                        ]
+                    ImageCarouselColumn(
+                        image_url='https://i.imgur.com/W7nI6fg.jpg',
+                        action=PostbackAction(
+                            label='選這個！',
+                            display_text='我選第三張！',
+                            data='action=喜歡Ｃ餐廳'
+                        )
                     )
                 ]
             )
         )
-        line_bot_api.reply_message(event.reply_token, carousel_template_message)
+        line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
    
     elif re.match('告訴我咖啡廳',message):
         buttons_template_message = TemplateSendMessage(
