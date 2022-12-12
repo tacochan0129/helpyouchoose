@@ -70,7 +70,7 @@ def handle_message(event):
                         )
                     ),
                     ImageCarouselColumn(
-                        image_url='https://i.imgur.com/W7nI6fg.jpg',
+                        image_url='https://live.staticflickr.com/65535/52028350813_4ec4a84ea6_c.jpg?v=pixnet-flickr-app-version',
                         action=PostbackAction(
                             label='選這個！',
                             display_text='我選第三張！',
@@ -82,13 +82,13 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
    
-    elif re.match('告訴我咖啡廳',message):
+    elif re.match('我選第一張!',message):
         buttons_template_message = TemplateSendMessage(
         alt_text='這個看不到',
         template=ButtonsTemplate(
-            thumbnail_image_url='https://i.imgur.com/wpM584d.jpg',
-            title='行銷搬進大程式',
-            text='選單功能－TemplateSendMessage',
+            thumbnail_image_url='https://doqvf81n9htmm.cloudfront.net/data/Luke1226_165/2020-02/%E5%92%96%E5%95%A1%E5%BB%B3/%E5%8F%B0%E5%8C%97%E7%99%AE%E5%92%96%E5%95%A1_40a.jpg',
+            title='台北癮咖啡',
+            text='A餐廳',
             actions=[
                 PostbackAction(
                     label='偷偷傳資料',
