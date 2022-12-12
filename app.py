@@ -64,16 +64,16 @@ def handle_message(event):
                         image_url='https://wowlavie-aws.hmgcdn.com/file/article_all/%E5%A4%A7%E7%A8%BB%E5%9F%95%E3%80%8CTWATUTIA%E3%80%8D%E5%92%96%E5%95%A1%E5%BB%B31.jpg',
                         action=PostbackAction(
                             label='選這個！',
-                            display_text='我選第一張',
-                            data='action=喜歡Ｂ餐廳'
+                            display_text='',
+                            data='action=喜歡B餐廳'
                         )
                     ),
                     ImageCarouselColumn(
                         image_url='https://live.staticflickr.com/65535/52028350813_4ec4a84ea6_c.jpg?v=pixnet-flickr-app-version',
                         action=PostbackAction(
                             label='選這個！',
-                            display_text='我選第三張',
-                            data='action=喜歡Ｃ餐廳'
+                            display_text='',
+                            data='action=喜歡C餐廳'
                         )
                     )
                 ]
@@ -83,11 +83,11 @@ def handle_message(event):
    
     elif re.match('我選第一張',message):
         buttons_template_message = TemplateSendMessage(
-        alt_text='這個看不到',
+        alt_text='A餐廳',
         template=ButtonsTemplate(
             thumbnail_image_url='https://doqvf81n9htmm.cloudfront.net/data/Luke1226_165/2020-02/%E5%92%96%E5%95%A1%E5%BB%B3/%E5%8F%B0%E5%8C%97%E7%99%AE%E5%92%96%E5%95%A1_40a.jpg',
             title='台北癮咖啡',
-            text='A餐廳',
+            text='',
             actions=[
                 PostbackAction(
                     label='偷偷傳資料',
@@ -106,6 +106,33 @@ def handle_message(event):
         )
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        
+    elif data=='action=喜歡C餐廳':
+        buttons_template_message = TemplateSendMessage(
+        alt_text='C餐廳',
+        template=ButtonsTemplate(
+            thumbnail_image_url='https://live.staticflickr.com/65535/52028350813_4ec4a84ea6_c.jpg?v=pixnet-flickr-app-version',
+            title='Miracle Coffee東區',
+            text='',
+            actions=[
+                PostbackAction(
+                    label='偷偷傳資料',
+                    display_text='檯面上',
+                    data='action=檯面下'
+                ),
+                MessageAction(
+                    label='光明正大傳資料',
+                    text='我就是資料'
+                ),
+                URIAction(
+                    label='行銷搬進大程式',
+                    uri='https://marketingliveincode.com/'
+                )
+            ]
+        )
+    )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
