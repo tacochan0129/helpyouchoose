@@ -55,17 +55,15 @@ def handle_message(event):
                 columns=[
                     ImageCarouselColumn(
                         image_url='https://doqvf81n9htmm.cloudfront.net/data/Luke1226_165/2020-02/%E5%92%96%E5%95%A1%E5%BB%B3/%E5%8F%B0%E5%8C%97%E7%99%AE%E5%92%96%E5%95%A1_40a.jpg',
-                        action=PostbackAction(
+                        action=MessageAction(
                             label='選這個！',
-                            display_text='我選第一張',
-                            data='action=喜歡Ａ餐廳'
-                        )
+                            text='我選第一張'
                     ),
                     ImageCarouselColumn(
                         image_url='https://wowlavie-aws.hmgcdn.com/file/article_all/%E5%A4%A7%E7%A8%BB%E5%9F%95%E3%80%8CTWATUTIA%E3%80%8D%E5%92%96%E5%95%A1%E5%BB%B31.jpg',
                         action=PostbackAction(
-                            label='選這個',
-                            display_text='我選第二張',
+                            label='選這個！',
+                            display_text='',
                             data='action=喜歡Ｂ餐廳'
                         )
                     ),
