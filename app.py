@@ -18,16 +18,6 @@ from linebot.models import *
 import re
 app = Flask(__name__)
 
-#讀取先前抓取的咖啡廳資料
-import csv
-from random import sample
-cf = open("cafe.csv", "r", encoding="utf-8")
-csv_reader = csv.DictReader(cf)
-cf_row = [row for row in csv_reader]
-cf.close()
-
-
-
 # 放上自己的Channel Access Token
 line_bot_api = LineBotApi('YeDTarsdKiytdqoOC7qQIl/JjhRCNK3UTSj5rUT4vguYoCgASBdMutqc/2yQUdgWf68PJSrqegY9JRm9p97kKu0e3M3BgyTqiWBFdnY5Ugl0huQrHvUbGRqUKa/xhJAJjTMO3rD/rYOcbl5IyKunvAdB04t89/1O/w1cDnyilFU=')
 # 放上自己的Channel Secret
@@ -55,27 +45,34 @@ def callback():
 
 #訊息傳遞區塊
 ##### 基本上程式編輯都在這個function #####
+#讀取先前抓取的咖啡廳資料
+import csv
+from random import sample
+cf = open("cafe.csv", "r", encoding="utf-8")
+csv_reader = csv.DictReader(cf)
+cf_row = [row for row in csv_reader]
+cf.close()
+#隨機抽取三家店
+cf_random = sample(cf_row,3)
+cafe1 = cf_random[0]
+cafe2 = cf_random[1]
+cafe3 = cf_random[2]
+
+#將名稱、敘述、GoogleMaps連結、圖片存進functions
+def name(cafe_num) :
+    return cafe_num['咖啡廳名稱']
+def text(cafe_num):
+    return cafe_num['敘述']
+def gmap(cafe_num):
+    return cafe_num['GoogleMaps']
+def pic(cafe_num):
+    return cafe_num['圖片1']
+def thumb(cafe_num):
+    return cafe_num['封面']
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-    #隨機抽取三家店
-    cf_random = sample(cf_row,3)
-    cafe1 = cf_random[0]
-    cafe2 = cf_random[1]
-    cafe3 = cf_random[2]
-
-    #將名稱、敘述、GoogleMaps連結、圖片存進functions
-    def name(cafe_num) :
-        return cafe_num['咖啡廳名稱']
-    def text(cafe_num):
-        return cafe_num['敘述']
-    def gmap(cafe_num):
-        return cafe_num['GoogleMaps']
-    def pic(cafe_num):
-        return cafe_num['圖片1']
-    def thumb(cafe_num):
-        return cafe_num['封面']
-    
     
     if re.match('咖啡廳輪盤',message):
         image_carousel_template_message = TemplateSendMessage(
