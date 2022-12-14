@@ -25,11 +25,6 @@ cf = open("cafe.csv", "r", encoding="utf-8")
 csv_reader = csv.DictReader(cf)
 cf_row = [row for row in csv_reader]
 cf.close()
-#隨機抽取三家店
-cf_random = sample(cf_row,3)
-cafe1 = cf_random[0]
-cafe2 = cf_random[1]
-cafe3 = cf_random[2]
 
 # 放上自己的Channel Access Token
 line_bot_api = LineBotApi('YeDTarsdKiytdqoOC7qQIl/JjhRCNK3UTSj5rUT4vguYoCgASBdMutqc/2yQUdgWf68PJSrqegY9JRm9p97kKu0e3M3BgyTqiWBFdnY5Ugl0huQrHvUbGRqUKa/xhJAJjTMO3rD/rYOcbl5IyKunvAdB04t89/1O/w1cDnyilFU=')
@@ -75,6 +70,12 @@ def handle_message(event):
         return cafe_num['封面']
 
     if re.match('咖啡廳輪盤',message):
+        #隨機抽取三家店
+        cf_random = sample(cf_row,3)
+        cafe1 = cf_random[0]
+        cafe2 = cf_random[1]
+        cafe3 = cf_random[2]
+
         image_carousel_template_message = TemplateSendMessage(
             alt_text='咖啡廳輪盤',
             template=ImageCarouselTemplate(
