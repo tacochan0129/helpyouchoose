@@ -82,6 +82,7 @@ def handle_message(event):
             )
         )
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
+    
    
     elif re.match('我選第一張',message):
         buttons_template_message = TemplateSendMessage(
@@ -99,6 +100,7 @@ def handle_message(event):
         )
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
+   
         
     elif re.match('我選第二張',message):
         buttons_template_message = TemplateSendMessage(
@@ -115,7 +117,7 @@ def handle_message(event):
             ]
         )
     )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)  
         
     elif re.match('我選第三張',message):
         buttons_template_message = TemplateSendMessage(
@@ -132,8 +134,7 @@ def handle_message(event):
             ]
         )
     )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)   
-        
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)        
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
