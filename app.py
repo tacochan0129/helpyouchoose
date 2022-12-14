@@ -113,18 +113,9 @@ def handle_message(event):
         alt_text='這個看不到',
         template=ButtonsTemplate(
             thumbnail_image_url=thumb(cafe1),
-            title='行銷搬進大程式',
-            text='選單功能－TemplateSendMessage',
+            title=name(cafe1),
+            text=text(cafe1),
             actions=[
-#                 PostbackAction(
-#                     label='偷偷傳資料',
-#                     display_text='檯面上',
-#                     data='action=檯面下'
-#                 ),
-#                 MessageAction(
-#                     label='光明正大傳資料',
-#                     text='我就是資料'
-#                 ),
                 URIAction(
                     label='現在就過去吧！',
                     uri=gmap(cafe1)
