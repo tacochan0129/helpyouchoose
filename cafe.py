@@ -24,7 +24,7 @@ def gmap(cafe_num):
 def pic(cafe_num):
     return cafe_num['圖片1']
 
-def title_pic(cafe_num):
+def thumb(cafe_num):
     return cafe_num['封面']
 #print(cf_row)
 #print(cafe1)
