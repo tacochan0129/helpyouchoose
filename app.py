@@ -18,9 +18,12 @@ from linebot.models import *
 import re
 app = Flask(__name__)
 
-# 必須放上自己的Channel Access Token
+#隨機抽取店家，並將相關資料存進變數的功能
+import cafe
+
+# 放上自己的Channel Access Token
 line_bot_api = LineBotApi('YeDTarsdKiytdqoOC7qQIl/JjhRCNK3UTSj5rUT4vguYoCgASBdMutqc/2yQUdgWf68PJSrqegY9JRm9p97kKu0e3M3BgyTqiWBFdnY5Ugl0huQrHvUbGRqUKa/xhJAJjTMO3rD/rYOcbl5IyKunvAdB04t89/1O/w1cDnyilFU=')
-# 必須放上自己的Channel Secret
+# 放上自己的Channel Secret
 handler = WebhookHandler('da402173412195ab0d896ecc377c7354')
 
 line_bot_api.push_message('U260423b736b8f83bfc9ae5196a8b20a5', TextSendMessage(text='想喝杯咖啡嗎'))
@@ -59,21 +62,21 @@ def handle_message(event):
             template=ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
-                        image_url= url1,
+                        image_url= pic(cafe1),
                         action=MessageAction(
                             label='選這個！',
                             text='我選第一張'
                         )
                     ),
                     ImageCarouselColumn(
-                        image_url= url2,
+                        image_url= pic(cafe2),
                         action=MessageAction(
                             label='選這個！',
                             text='我選第二張'
                         )
                     ),
                     ImageCarouselColumn(
-                        image_url= url3,
+                        image_url= pic(cafe3),
                         action=MessageAction(
                             label='選這個！',
                             text='我選第三張'
@@ -86,29 +89,54 @@ def handle_message(event):
    
     elif re.match('我選第一張',message):
         buttons_template_message = TemplateSendMessage(
-        alt_text='A餐廳',
+        alt_text='就決定是你了！',
         template=ButtonsTemplate(
-            thumbnail_image_url= url1,
-            title= rest1,
-            text='就決定是你了！',
+            thumbnail_image_url= pic(cafe1),
+            title= name(cafe1),
+            text=　text1(cafe1),
             actions=[
-                PostbackAction(
-                    label='偷偷傳資料',
-                    display_text='檯面上',
-                    data='action=檯面下'
-                ),
-                MessageAction(
-                    label='光明正大傳資料',
-                    text='我就是資料'
-                ),
                 URIAction(
-                    label='行銷搬進大程式',
-                    uri='https://marketingliveincode.com/'
+                    label='現在就帶我過去',
+                    uri= gmap(cafe1)
                 )
             ]
         )
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        
+    elif re.match('我選第二張',message):
+        buttons_template_message = TemplateSendMessage(
+        alt_text='就決定是你了！',
+        template=ButtonsTemplate(
+            thumbnail_image_url= pic(cafe2),
+            title= name(cafe2),
+            text=　text1(cafe2),
+            actions=[
+                URIAction(
+                    label='現在就帶我過去',
+                    uri= gmap(cafe2)
+                )
+            ]
+        )
+    )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        
+    elif re.match('我選第三張',message):
+        buttons_template_message = TemplateSendMessage(
+        alt_text='就決定是你了！',
+        template=ButtonsTemplate(
+            thumbnail_image_url= pic(cafe3),
+            title= name(cafe3),
+            text=　text1(cafe3),
+            actions=[
+                URIAction(
+                    label='現在就帶我過去',
+                    uri= gmap(cafe3)
+                )
+            ]
+        )
+    )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)   
         
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
