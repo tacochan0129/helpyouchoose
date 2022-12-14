@@ -63,38 +63,38 @@ def handle_message(event):
         cafe1 = cf_random[0]
         cafe2 = cf_random[1]
         cafe3 = cf_random[2]
-       #將名稱、敘述、GoogleMaps連結、圖片存進functions
-        def name(cafe_num) :
-            return cafe_num['咖啡廳名稱']
-        def text(cafe_num):
-            return cafe_num['敘述']
-        def gmap(cafe_num):
-            return cafe_num['GoogleMaps']
-        def pic(cafe_num):
-            return cafe_num['圖片1']
-        def thumb(cafe_num):
-            return cafe_num['封面']
+#        #將名稱、敘述、GoogleMaps連結、圖片存進functions
+#         def name(cafe_num) :
+#             return cafe_num['咖啡廳名稱']
+#         def text(cafe_num):
+#             return cafe_num['敘述']
+#         def gmap(cafe_num):
+#             return cafe_num['GoogleMaps']
+#         def pic(cafe_num):
+#             return cafe_num['圖片1']
+#         def thumb(cafe_num):
+#             return cafe_num['封面']
         
         image_carousel_template_message = TemplateSendMessage(
             alt_text='咖啡廳輪盤',
             template=ImageCarouselTemplate(
                 columns=[
                     ImageCarouselColumn(
-                        image_url= pic(cafe1),
+                        image_url= cafe1['圖片1'],
                         action=MessageAction(
                             label='選這個！',
                             text='我選第一張'
                         )
                     ),
                     ImageCarouselColumn(
-                        image_url= pic(cafe2),
+                        image_url= cafe2['圖片1'],
                         action=MessageAction(
                             label='選這個！',
                             text='我選第二張'
                         )
                     ),
                     ImageCarouselColumn(
-                        image_url= pic(cafe3),
+                        image_url= cafe3['圖片1'],
                         action=MessageAction(
                             label='選這個！',
                             text='我選第三張'
@@ -109,13 +109,13 @@ def handle_message(event):
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
-            thumbnail_image_url=thumb(cafe1),
-            title=name(cafe1),
-            text=text(cafe1),
+            thumbnail_image_url=cafe1['封面'],
+            title=cafe1['咖啡廳名稱'],
+            text=cafe1['敘述'],
             actions=[
                 URIAction(
                     label='現在就過去吧！',
-                    uri=gmap(cafe1)
+                    uri=cafe1['GoogleMaps']
                 )
             ]
         )
@@ -126,13 +126,13 @@ def handle_message(event):
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
-            thumbnail_image_url=thumb(cafe2),
-            title=name(cafe2),
-            text=text(cafe2),
+            thumbnail_image_url=cafe2['封面'],
+            title=cafe2['咖啡廳名稱'],
+            text=cafe2['敘述'],
             actions=[
                 URIAction(
                     label='現在就過去吧！',
-                    uri=gmap(cafe2)
+                    uri=cafe2['GoogleMaps']
                 )
             ]
         )
@@ -143,20 +143,20 @@ def handle_message(event):
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
-            thumbnail_image_url=thumb(cafe3),
-            title=name(cafe3),
-            text=text(cafe3),
+            thumbnail_image_url=cafe3['封面'],
+            title=cafe3['咖啡廳名稱'],
+            text=cafe3['敘述'],
             actions=[
                 URIAction(
                     label='現在就過去吧！',
-                    uri=gmap(cafe3)
+                    uri=cafe3['GoogleMaps']
                 )
             ]
         )
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)          
     else:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage('不要再猶豫不決了！'))
 
 #主程式
 import os
