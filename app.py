@@ -51,10 +51,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-    url1 = 'https://doqvf81n9htmm.cloudfront.net/data/Luke1226_165/2020-02/%E5%92%96%E5%95%A1%E5%BB%B3/%E5%8F%B0%E5%8C%97%E7%99%AE%E5%92%96%E5%95%A1_40a.jpg'
-    url2 = 'https://wowlavie-aws.hmgcdn.com/file/article_all/%E5%A4%A7%E7%A8%BB%E5%9F%95%E3%80%8CTWATUTIA%E3%80%8D%E5%92%96%E5%95%A1%E5%BB%B31.jpg'
-    url3 = 'https://live.staticflickr.com/65535/52028350813_4ec4a84ea6_c.jpg?v=pixnet-flickr-app-version'
-    rest1 = '台北癮咖啡'
     
     if re.match('咖啡廳輪盤',message):
         image_carousel_template_message = TemplateSendMessage(
@@ -91,7 +87,7 @@ def handle_message(event):
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
-            thumbnail_image_url= pic(cafe1),
+            thumbnail_image_url= thumb(cafe1),
             title= name(cafe1),
             text=　text1(cafe1),
             actions=[
@@ -108,7 +104,7 @@ def handle_message(event):
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
-            thumbnail_image_url= pic(cafe2),
+            thumbnail_image_url= thumb(cafe2),
             title= name(cafe2),
             text=　text1(cafe2),
             actions=[
@@ -125,7 +121,7 @@ def handle_message(event):
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
-            thumbnail_image_url= pic(cafe3),
+            thumbnail_image_url= thumb(cafe3),
             title= name(cafe3),
             text=　text1(cafe3),
             actions=[
