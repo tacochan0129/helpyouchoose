@@ -128,6 +128,9 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
                 
     elif re.match('我選第一張',message):
+        cafe1 = cf_random[0]
+        cafe2 = cf_random[1]
+        cafe3 = cf_random[2]  
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
@@ -145,6 +148,9 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
         
     elif re.match('我選第二張',message):
+        cafe1 = cf_random[0]
+        cafe2 = cf_random[1]
+        cafe3 = cf_random[2]  
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
@@ -162,6 +168,9 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
         
     elif re.match('我選第三張',message):
+        cafe1 = cf_random[0]
+        cafe2 = cf_random[1]
+        cafe3 = cf_random[2]
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
