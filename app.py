@@ -56,7 +56,9 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-
+    cafe1 = {}
+    cafe2 = {}
+    cafe3 = {}
     if re.match('咖啡廳輪盤',message):
         #隨機抽取三家店
         cf_random = sample(cf_row,3)
