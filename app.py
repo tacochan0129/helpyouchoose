@@ -18,7 +18,7 @@ from linebot.models import *
 import re
 app = Flask(__name__)
 
-#隨機抽取店家，並將相關資料存進變數的功能
+#讀取先前抓取的咖啡廳資料
 import csv
 from random import sample
 cf = open("cafe.csv", "r", encoding="utf-8")
@@ -127,7 +127,7 @@ def handle_message(event):
                 ),
                 URIAction(
                     label='行銷搬進大程式',
-                    uri='https://marketingliveincode.com/'
+                    uri=gmap(cafe1)
                 )
             ]
         )
