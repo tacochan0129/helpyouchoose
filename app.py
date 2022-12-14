@@ -57,11 +57,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-    #隨機抽取三家店
-    cf_random = sample(cf_row,3)
-    cafe1 = cf_random[0]
-    cafe2 = cf_random[1]
-    cafe3 = cf_random[2]        
+         
     
     #將名稱、敘述、GoogleMaps連結、圖片存進functions
     def name(cafe_num) :
@@ -74,7 +70,6 @@ def handle_message(event):
         return cafe_num['圖片1']
     def thumb(cafe_num):
         return cafe_num['封面']
-    if re.match('咖啡廳輪盤',message):
 #        #將名稱、敘述、GoogleMaps連結、圖片存進變數
 #         name1 = cafe1['咖啡廳名稱']
 #         name2 = cafe2['咖啡廳名稱']
@@ -95,6 +90,12 @@ def handle_message(event):
 #         thumb1 = cafe1['封面']
 #         thumb2 = cafe2['封面']
 #         thumb3 = cafe3['封面']
+    if re.match('咖啡廳輪盤',message):
+        #隨機抽取三家店
+        cf_random = sample(cf_row,3)
+        cafe1 = cf_random[0]
+        cafe2 = cf_random[1]
+        cafe3 = cf_random[2]   
 
         image_carousel_template_message = TemplateSendMessage(
             alt_text='咖啡廳輪盤',
