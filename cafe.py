@@ -18,7 +18,7 @@ def name(cafe_num) :
 def text(cafe_num):
     return cafe_num['敘述']
 
-def map(cafe_num):
+def gmap(cafe_num):
     return cafe_num['GoogleMaps']
 
 def pic(cafe_num):
