@@ -175,7 +175,24 @@ def handle_message(event):
             ]
         )
     )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)          
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        
+    elif re.match('隨便一家都可以啦',message):
+        buttons_template_message = TemplateSendMessage(
+        alt_text='隨便啦',
+        template=ButtonsTemplate(
+            thumbnail_image_url=thumb(cafe3),#cafe3['封面']
+            title=name(cafe3),#cafe3['咖啡廳名稱']
+            text=text(cafe3),#cafe3['敘述']
+            actions=[
+                URIAction(
+                    label='現在就過去吧！',
+                    uri=gmap(cafe3)#cafe3['GoogleMaps']
+                )
+            ]
+        )
+    )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('不要再猶豫不決了！'))
 
