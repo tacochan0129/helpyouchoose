@@ -127,39 +127,39 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
    
         
-    elif re.match('我選第二張',message):
-        buttons_template_message = TemplateSendMessage(
-        alt_text='就決定是你了！',
-        template=ButtonsTemplate(
-            thumbnail_image_url= thumb(cafe2),
-            title= name(cafe2),
-            text=　text1(cafe2),
-            actions=[
-                URIAction(
-                    label='現在就帶我過去',
-                    uri= gmap(cafe2)
-                )
-            ]
-        )
-    )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)  
+#     elif re.match('我選第二張',message):
+#         buttons_template_message = TemplateSendMessage(
+#         alt_text='就決定是你了！',
+#         template=ButtonsTemplate(
+#             thumbnail_image_url= thumb(cafe2),
+#             title= name(cafe2),
+#             text=　text1(cafe2),
+#             actions=[
+#                 URIAction(
+#                     label='現在就帶我過去',
+#                     uri= gmap(cafe2)
+#                 )
+#             ]
+#         )
+#     )
+#         line_bot_api.reply_message(event.reply_token, buttons_template_message)  
         
-    elif re.match('我選第三張',message):
-        buttons_template_message = TemplateSendMessage(
-        alt_text='就決定是你了！',
-        template=ButtonsTemplate(
-            thumbnail_image_url= thumb(cafe3),
-            title= name(cafe3),
-            text=　text1(cafe3),
-            actions=[
-                URIAction(
-                    label='現在就帶我過去',
-                    uri= gmap(cafe3)
-                )
-            ]
-        )
-    )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)        
+#     elif re.match('我選第三張',message):
+#         buttons_template_message = TemplateSendMessage(
+#         alt_text='就決定是你了！',
+#         template=ButtonsTemplate(
+#             thumbnail_image_url= thumb(cafe3),
+#             title= name(cafe3),
+#             text=　text1(cafe3),
+#             actions=[
+#                 URIAction(
+#                     label='現在就帶我過去',
+#                     uri= gmap(cafe3)
+#                 )
+#             ]
+#         )
+#     )
+#         line_bot_api.reply_message(event.reply_token, buttons_template_message)        
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 
