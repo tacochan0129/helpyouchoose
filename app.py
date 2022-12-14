@@ -60,7 +60,7 @@ def handle_message(event):
          
     
     #將名稱、敘述、GoogleMaps連結、圖片存進functions
-    def name(cafe_num) :
+    def name(cafe_num):
        return cafe_num['咖啡廳名稱']
     def text(cafe_num):
         return cafe_num['敘述']
@@ -179,16 +179,20 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
         
     elif re.match('隨便一家都可以啦',message):
+         #隨機抽取三家店
+        cf_random = sample(cf_row,3)
+        cafe_r = cf_random[0]
+
         buttons_template_message = TemplateSendMessage(
         alt_text='隨便啦',
         template=ButtonsTemplate(
-            thumbnail_image_url=thumb(cafe3),#cafe3['封面']
-            title=name(cafe3),#cafe3['咖啡廳名稱']
-            text=text(cafe3),#cafe3['敘述']
+            thumbnail_image_url=thumb(cafe_r),
+            title=name(cafe_r),
+            text=text(cafe_r),
             actions=[
                 URIAction(
                     label='現在就過去吧！',
-                    uri=gmap(cafe3)#cafe3['GoogleMaps']
+                    uri=gmap(cafe_r)
                 )
             ]
         )
