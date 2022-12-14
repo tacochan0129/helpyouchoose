@@ -106,57 +106,106 @@ def handle_message(event):
             )
         )
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
-    
-    elif re.match('我選第一張',message):
-        buttons_template_message = TemplateSendMessage(
-        alt_text='就決定是你了！',
-        template=ButtonsTemplate(
-            thumbnail_image_url=cafe1['封面'],
-            title=cafe1['咖啡廳名稱'],
-            text=cafe1['敘述'],
-            actions=[
-                URIAction(
-                    label='現在就過去吧！',
-                    uri=cafe1['GoogleMaps']
-                )
-            ]
+        if re.match('我選第一張',message):
+            buttons_template_message = TemplateSendMessage(
+            alt_text='就決定是你了！',
+            template=ButtonsTemplate(
+                thumbnail_image_url=cafe1['封面'],
+                title=cafe1['咖啡廳名稱'],
+                text=cafe1['敘述'],
+                actions=[
+                    URIAction(
+                        label='現在就過去吧！',
+                        uri=cafe1['GoogleMaps']
+                    )
+                ]
+            )
         )
-    )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+            line_bot_api.reply_message(event.reply_token, buttons_template_message)
+
+        elif re.match('我選第二張',message):
+            buttons_template_message = TemplateSendMessage(
+            alt_text='就決定是你了！',
+            template=ButtonsTemplate(
+                thumbnail_image_url=cafe2['封面'],
+                title=cafe2['咖啡廳名稱'],
+                text=cafe2['敘述'],
+                actions=[
+                    URIAction(
+                        label='現在就過去吧！',
+                        uri=cafe2['GoogleMaps']
+                    )
+                ]
+            )
+        )
+            line_bot_api.reply_message(event.reply_token, buttons_template_message)
+
+        elif re.match('我選第三張',message):
+            buttons_template_message = TemplateSendMessage(
+            alt_text='就決定是你了！',
+            template=ButtonsTemplate(
+                thumbnail_image_url=cafe3['封面'],
+                title=cafe3['咖啡廳名稱'],
+                text=cafe3['敘述'],
+                actions=[
+                    URIAction(
+                        label='現在就過去吧！',
+                        uri=cafe3['GoogleMaps']
+                    )
+                ]
+            )
+        )
+            line_bot_api.reply_message(event.reply_token, buttons_template_message)         
+#     elif re.match('我選第一張',message):
+#         buttons_template_message = TemplateSendMessage(
+#         alt_text='就決定是你了！',
+#         template=ButtonsTemplate(
+#             thumbnail_image_url=cafe1['封面'],
+#             title=cafe1['咖啡廳名稱'],
+#             text=cafe1['敘述'],
+#             actions=[
+#                 URIAction(
+#                     label='現在就過去吧！',
+#                     uri=cafe1['GoogleMaps']
+#                 )
+#             ]
+#         )
+#     )
+#         line_bot_api.reply_message(event.reply_token, buttons_template_message)
         
-    elif re.match('我選第二張',message):
-        buttons_template_message = TemplateSendMessage(
-        alt_text='就決定是你了！',
-        template=ButtonsTemplate(
-            thumbnail_image_url=cafe2['封面'],
-            title=cafe2['咖啡廳名稱'],
-            text=cafe2['敘述'],
-            actions=[
-                URIAction(
-                    label='現在就過去吧！',
-                    uri=cafe2['GoogleMaps']
-                )
-            ]
-        )
-    )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+#     elif re.match('我選第二張',message):
+#         buttons_template_message = TemplateSendMessage(
+#         alt_text='就決定是你了！',
+#         template=ButtonsTemplate(
+#             thumbnail_image_url=cafe2['封面'],
+#             title=cafe2['咖啡廳名稱'],
+#             text=cafe2['敘述'],
+#             actions=[
+#                 URIAction(
+#                     label='現在就過去吧！',
+#                     uri=cafe2['GoogleMaps']
+#                 )
+#             ]
+#         )
+#     )
+#         line_bot_api.reply_message(event.reply_token, buttons_template_message)
         
-    elif re.match('我選第三張',message):
-        buttons_template_message = TemplateSendMessage(
-        alt_text='就決定是你了！',
-        template=ButtonsTemplate(
-            thumbnail_image_url=cafe3['封面'],
-            title=cafe3['咖啡廳名稱'],
-            text=cafe3['敘述'],
-            actions=[
-                URIAction(
-                    label='現在就過去吧！',
-                    uri=cafe3['GoogleMaps']
-                )
-            ]
-        )
-    )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)          
+#     elif re.match('我選第三張',message):
+#         buttons_template_message = TemplateSendMessage(
+#         alt_text='就決定是你了！',
+#         template=ButtonsTemplate(
+#             thumbnail_image_url=cafe3['封面'],
+#             title=cafe3['咖啡廳名稱'],
+#             text=cafe3['敘述'],
+#             actions=[
+#                 URIAction(
+#                     label='現在就過去吧！',
+#                     uri=cafe3['GoogleMaps']
+#                 )
+#             ]
+#         )
+#     )
+#         line_bot_api.reply_message(event.reply_token, buttons_template_message)          
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('不要再猶豫不決了！'))
 
