@@ -161,6 +161,11 @@ def handle_message(event):
         )
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        name_list.clear()
+        text_list.clear()
+        map_list.clear()
+        pic_list.clear()
+        thumb_list.clear()
         
 #     elif re.match('我選第二張',message):  
 #         buttons_template_message = TemplateSendMessage(
