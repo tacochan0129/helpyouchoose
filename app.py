@@ -216,7 +216,7 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, buttons_template_message)
             clear_list()
         
-    if re.match('隨便一家都可以啦',message):
+    if re.match('隨便啦',message):
          #隨機抽取三家店
         cf_random = sample(cf_row,3)
         cafe_r = cf_random[0]
