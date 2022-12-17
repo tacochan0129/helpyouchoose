@@ -128,21 +128,21 @@ def handle_message(event):
                     ImageCarouselColumn(
                         image_url= pic1,#cafe1['圖片1']
                         action=MessageAction(
-                            label='選這個！',
+                            label='選這間！',
                             text='我選第一張'
                         )
                     ),
                     ImageCarouselColumn(
                         image_url= pic2,#cafe2['圖片1']
                         action=MessageAction(
-                            label='選這個！',
+                            label='選這間！',
                             text='我選第二張'
                         )
                     ),
                     ImageCarouselColumn(
                         image_url= pic3,#cafe3['圖片1']
                         action=MessageAction(
-                            label='選這個！',
+                            label='選這間！',
                             text='我選第三張'
                         )
                     )
