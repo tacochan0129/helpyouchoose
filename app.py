@@ -155,7 +155,7 @@ def handle_message(event):
             actions=[
                 URIAction(
                     label='現在就過去吧！',
-                    uri=map1#cafe1['GoogleMaps']
+                    uri=map_list[0]#cafe1['GoogleMaps']
                 )
             ]
         )
