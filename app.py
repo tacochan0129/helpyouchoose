@@ -127,10 +127,7 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
                 
-    elif re.match('我選第一張',message):
-        cafe1 = cf_random[0]
-        cafe2 = cf_random[1]
-        cafe3 = cf_random[2]  
+    if re.match('我選第一張',message):
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
@@ -147,10 +144,7 @@ def handle_message(event):
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
         
-    elif re.match('我選第二張',message):
-        cafe1 = cf_random[0]
-        cafe2 = cf_random[1]
-        cafe3 = cf_random[2]  
+    elif re.match('我選第二張',message):  
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
@@ -168,9 +162,6 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
         
     elif re.match('我選第三張',message):
-        cafe1 = cf_random[0]
-        cafe2 = cf_random[1]
-        cafe3 = cf_random[2]
         buttons_template_message = TemplateSendMessage(
         alt_text='就決定是你了！',
         template=ButtonsTemplate(
@@ -187,7 +178,7 @@ def handle_message(event):
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
         
-    elif re.match('隨便一家都可以啦',message):
+    if re.match('隨便一家都可以啦',message):
          #隨機抽取三家店
         cf_random = sample(cf_row,3)
         cafe_r = cf_random[0]
