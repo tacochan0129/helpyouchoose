@@ -63,17 +63,23 @@ def handle_message(event):
     message = text=event.message.text
          
     
-    #將名稱、敘述、GoogleMaps連結、圖片存進functions
-    def name(cafe_num):
-       return cafe_num['咖啡廳名稱']
-    def text(cafe_num):
-        return cafe_num['敘述']
-    def gmap(cafe_num):
-        return cafe_num['GoogleMaps']
-    def pic(cafe_num):
-        return cafe_num['圖片1']
-    def thumb(cafe_num):
-        return cafe_num['封面']
+#     #將名稱、敘述、GoogleMaps連結、圖片存進functions
+#     def name(cafe_num):
+#        return cafe_num['咖啡廳名稱']
+#     def text(cafe_num):
+#         return cafe_num['敘述']
+#     def gmap(cafe_num):
+#         return cafe_num['GoogleMaps']
+#     def pic(cafe_num):
+#         return cafe_num['圖片1']
+#     def thumb(cafe_num):
+#         return cafe_num['封面']
+    def clear_list():
+        name_list.clear()
+        text_list.clear()
+        map_list.clear()
+        pic_list.clear()
+        thumb_list.clear()
     
     #隨機抽取三家店
     cf_random = sample(cf_row,3)
@@ -146,60 +152,67 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
                 
     if re.match('我選第一張',message):
-        buttons_template_message = TemplateSendMessage(
-        alt_text='就決定是你了！',
-        template=ButtonsTemplate(
-            thumbnail_image_url=thumb_list[0],#cafe1['封面']
-            title=name_list[0],#cafe1['咖啡廳名稱']
-            text=text_list[0],#cafe1['敘述']
-            actions=[
-                URIAction(
-                    label='現在就過去吧！',
-                    uri=map_list[0]#cafe1['GoogleMaps']
-                )
-            ]
+        if name_list == []:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage('不能反選唷！\n若要重新一輪，請點選"咖啡廳輪盤"以開啟新的一輪喔！'))
+        else:
+            buttons_template_message = TemplateSendMessage(
+            alt_text='就決定是你了！',
+            template=ButtonsTemplate(
+                thumbnail_image_url=thumb_list[0],#cafe1['封面']
+                title=name_list[0],#cafe1['咖啡廳名稱']
+                text=text_list[0],#cafe1['敘述']
+                actions=[
+                    URIAction(
+                        label='現在就過去吧！',
+                        uri=map_list[0]#cafe1['GoogleMaps']
+                    )
+                ]
+            )
         )
-    )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)
-        name_list.clear()
-        text_list.clear()
-        map_list.clear()
-        pic_list.clear()
-        thumb_list.clear()
+            line_bot_api.reply_message(event.reply_token, buttons_template_message)
+            clear_list()
         
-#     elif re.match('我選第二張',message):  
-#         buttons_template_message = TemplateSendMessage(
-#         alt_text='就決定是你了！',
-#         template=ButtonsTemplate(
-#             thumbnail_image_url=thumb(cafe2),#cafe2['封面']
-#             title=name(cafe2),#cafe2['咖啡廳名稱']
-#             text=text(cafe2),#cafe2['敘述']
-#             actions=[
-#                 URIAction(
-#                     label='現在就過去吧！',
-#                     uri=gmap(cafe2)#cafe2['GoogleMaps']
-#                 )
-#             ]
-#         )
-#     )
-#         line_bot_api.reply_message(event.reply_token, buttons_template_message)
+    elif re.match('我選第二張',message):
+        if name_list == []:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage('不能反選唷！\n若要重新一輪，請點選"咖啡廳輪盤"以開啟新的一輪喔！'))
+        else:
+            buttons_template_message = TemplateSendMessage(
+            alt_text='就決定是你了！',
+            template=ButtonsTemplate(
+                thumbnail_image_url=thumb_list[1],#cafe2['封面']
+                title=name_list[1],#cafe2['咖啡廳名稱']
+                text=text_list[1],#cafe2['敘述']
+                actions=[
+                    URIAction(
+                        label='現在就過去吧！',
+                        uri=map_list[1]#cafe2['GoogleMaps']
+                    )
+                ]
+            )
+        )
+            line_bot_api.reply_message(event.reply_token, buttons_template_message)
+            clear_list()
         
-#     elif re.match('我選第三張',message):
-#         buttons_template_message = TemplateSendMessage(
-#         alt_text='就決定是你了！',
-#         template=ButtonsTemplate(
-#             thumbnail_image_url=thumb(cafe3),#cafe3['封面']
-#             title=name(cafe3),#cafe3['咖啡廳名稱']
-#             text=text(cafe3),#cafe3['敘述']
-#             actions=[
-#                 URIAction(
-#                     label='現在就過去吧！',
-#                     uri=gmap(cafe3)#cafe3['GoogleMaps']
-#                 )
-#             ]
-#         )
-#     )
-#         line_bot_api.reply_message(event.reply_token, buttons_template_message)
+    elif re.match('我選第三張',message):
+        if name_list == []:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage('不能反選唷！\n若要重新一輪，請點選"咖啡廳輪盤"以開啟新的一輪喔！'))
+        else:
+            buttons_template_message = TemplateSendMessage(
+            alt_text='就決定是你了！',
+            template=ButtonsTemplate(
+                thumbnail_image_url=thumb_list[2],#cafe3['封面']
+                title=name_list[2],#cafe3['咖啡廳名稱']
+                text=text_list[2],#cafe3['敘述']
+                actions=[
+                    URIAction(
+                        label='現在就過去吧！',
+                        uri=map_list[2]#cafe3['GoogleMaps']
+                    )
+                ]
+            )
+        )
+            line_bot_api.reply_message(event.reply_token, buttons_template_message)
+            clear_list()
         
     if re.match('隨便一家都可以啦',message):
          #隨機抽取三家店
