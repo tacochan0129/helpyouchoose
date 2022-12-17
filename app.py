@@ -224,13 +224,13 @@ def handle_message(event):
         buttons_template_message = TemplateSendMessage(
         alt_text='隨便啦',
         template=ButtonsTemplate(
-            thumbnail_image_url=thumb(cafe_r),
-            title=name(cafe_r),
-            text=text(cafe_r),
+            thumbnail_image_url=cafe_r['封面'],
+            title=cafe_r['咖啡廳名稱'],
+            text=cafe_r['敘述'],
             actions=[
                 URIAction(
                     label='現在就過去吧！',
-                    uri=gmap(cafe_r)
+                    uri=cafe_r['GoogleMaps']
                 )
             ]
         )
