@@ -151,11 +151,11 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
     if re.match('附近店家',message):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage('此功能尚未完善唷！敬請期待❤️'))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage('此功能尚未完善唷！\n敬請期待🤗'))
     
     if re.match('我選第一張',message):
         if name_list == []:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage('不能反悔唷！\n若要重新一輪，請點選"咖啡廳輪盤"以開啟新的一輪喔！'))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage('不能反悔唷😥\n若要重新一輪，請點選"咖啡廳輪盤"以開啟新的一輪喔！'))
         else:
             buttons_template_message = TemplateSendMessage(
             alt_text='就決定是你了！',
@@ -176,7 +176,7 @@ def handle_message(event):
         
     elif re.match('我選第二張',message):
         if name_list == []:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage('不能反悔唷！\n若要重新一輪，請點選"咖啡廳輪盤"以開啟新的一輪喔！'))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage('不能反悔唷😥\n若要重新一輪，請點選"咖啡廳輪盤"以開啟新的一輪喔！'))
         else:
             buttons_template_message = TemplateSendMessage(
             alt_text='就決定是你了！',
@@ -197,7 +197,7 @@ def handle_message(event):
         
     elif re.match('我選第三張',message):
         if name_list == []:
-            line_bot_api.reply_message(event.reply_token, TextSendMessage('不能反悔唷！\n若要重新一輪，請點選"咖啡廳輪盤"以開啟新的一輪喔！'))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage('不能反悔唷😥\n若要重新一輪，請點選"咖啡廳輪盤"以開啟新的一輪喔！'))
         else:
             buttons_template_message = TemplateSendMessage(
             alt_text='就決定是你了！',
@@ -237,7 +237,7 @@ def handle_message(event):
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
     else:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用！'))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
 
 #主程式
 import os
