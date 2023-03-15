@@ -33,6 +33,7 @@ thumb_list = []
 
 # 附近店家功能
 from gps import *
+import rungps
 
 # 放上自己的Channel Access Token
 line_bot_api = LineBotApi('YeDTarsdKiytdqoOC7qQIl/JjhRCNK3UTSj5rUT4vguYoCgASBdMutqc/2yQUdgWf68PJSrqegY9JRm9p97kKu0e3M3BgyTqiWBFdnY5Ugl0huQrHvUbGRqUKa/xhJAJjTMO3rD/rYOcbl5IyKunvAdB04t89/1O/w1cDnyilFU=')
@@ -212,25 +213,30 @@ def handle_message(event):
     if re.match('附近店家',message):
 #         line_bot_api.reply_message(event.reply_token, TextSendMessage('請傳送指定的位置喔~'))
 #     if event.message.type == "location:
-#         address = event.message.address
+        address = "106台北市大安區永康街37巷28號"
+        # coffee_shop here should be a list
+        coffee_shop = nearest_coffee(address)
+        coffee_name = coffee_shop[0]
+        coffee_rating = coffee_shop[1]
+        maps_url = coffee_shop[2]
+        thumbnail_image_url = coffee_shop[3]
+#         near_coffee_shop_location = "106台北市大安區永康街37巷28號"
+#         near_coffee_shop_dic = get_nearest_coffee_shop(near_coffee_shop_location)
+#         lat = near_coffee_shop_dic['lat']
+#         lng = near_coffee_shop_dic['lng']        
+#         # set
+#         radius = 100
+#         keyword = 'coffee'
+#         nearby_coffee = get_nearby_places(lat, lng, radius, keyword)
 
-        near_coffee_shop_location = "106台北市大安區永康街37巷28號"
-        near_coffee_shop_dic = get_nearest_coffee_shop(near_coffee_shop_location)
-        lat = near_coffee_shop_dic['lat']
-        lng = near_coffee_shop_dic['lng']        
-        # set
-        radius = 100
-        keyword = 'coffee'
-        nearby_coffee = get_nearby_places(lat, lng, radius, keyword)
-
-        nearest_coffee_shop = nearby_coffee[0]
-        photo_ref = nearest_coffee_shop['photos'][0]['photo_reference']
-        photo_width = nearest_coffee_shop['photos'][0]['width']
-        thumbnail_image_url = f"https://maps.googleapis.com/maps/api/place/photo?key={GOOGLE_API_KEY}&photoreference={photo_ref}&maxwidth={photo_width}"
-        nearest_coffee_details = get_place_details(nearest_coffee_shop['place_id'])
-        coffee_name = nearest_coffee_details['name']
-        coffee_rating = nearest_coffee_details['rating']
-        maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
+#         nearest_coffee_shop = nearby_coffee[0]
+#         photo_ref = nearest_coffee_shop['photos'][0]['photo_reference']
+#         photo_width = nearest_coffee_shop['photos'][0]['width']
+#         thumbnail_image_url = f"https://maps.googleapis.com/maps/api/place/photo?key={GOOGLE_API_KEY}&photoreference={photo_ref}&maxwidth={photo_width}"
+#         nearest_coffee_details = get_place_details(nearest_coffee_shop['place_id'])
+#         coffee_name = nearest_coffee_details['name']
+#         coffee_rating = nearest_coffee_details['rating']
+#         maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
 #         coffee_name = "Cafefe Libero"
 #         coffee_rating = "4.2"
 #         thumbnail_image_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
