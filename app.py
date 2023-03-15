@@ -32,7 +32,9 @@ map_list, pic_list = [], []
 thumb_list = []
 
 # 附近店家功能
-from gps import *
+from gps import get_nearest_coffee_shop
+from gps import get_nearby_places
+from gps import get_place_details
 
 # 放上自己的Channel Access Token
 line_bot_api = LineBotApi('YeDTarsdKiytdqoOC7qQIl/JjhRCNK3UTSj5rUT4vguYoCgASBdMutqc/2yQUdgWf68PJSrqegY9JRm9p97kKu0e3M3BgyTqiWBFdnY5Ugl0huQrHvUbGRqUKa/xhJAJjTMO3rD/rYOcbl5IyKunvAdB04t89/1O/w1cDnyilFU=')
@@ -230,7 +232,7 @@ def handle_message(event):
         nearest_coffee_details = get_place_details(nearest_coffee_shop['place_id'])
         coffee_name = nearest_coffee_details['name']
         coffee_rating = nearest_coffee_details['rating']
-        maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
+        maps_url = f"https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}"
 #         coffee_name = "Cafefe Libero"
 #         coffee_rating = "4.2"
 #         thumbnail_image_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
