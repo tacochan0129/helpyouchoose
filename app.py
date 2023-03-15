@@ -121,8 +121,8 @@ def handle_message(event):
             )
         )
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
-    if re.match('附近店家',message):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage('此功能尚未完善唷！\n敬請期待🤗'))
+#     if re.match('附近店家',message):
+#         line_bot_api.reply_message(event.reply_token, TextSendMessage('此功能尚未完善唷！\n敬請期待🤗'))
     
     if re.match('我選第一張',message):
         if name_list == []:
