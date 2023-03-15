@@ -77,7 +77,8 @@ def handle_message(event):
     cf_random = sample(cf_row,3)
     cafe1 = cf_random[0]
     cafe2 = cf_random[1]
-    cafe3 = cf_random[2]   
+    cafe3 = cf_random[2]
+    
 
     if re.match('咖啡廳輪盤',message):
         #將名稱、敘述、GoogleMaps連結、圖片存進變數
@@ -212,14 +213,14 @@ def handle_message(event):
     # 附近店家功能
     if re.match('附近店家',message):
 #         line_bot_api.reply_message(event.reply_token, TextSendMessage('請傳送指定的位置喔~'))
-#     if event.message.type == "location:
-        address = "106台北市大安區永康街37巷28號"
+    if event.message.type == "location:
+        address = event.message.text
         # coffee_shop here should be a list
         coffee_shop = nearest_coffee(address)
         coffee_name = coffee_shop[0]
         coffee_rating = coffee_shop[1]
         maps_url = coffee_shop[2]
-        thumbnail_image_url = coffee_shop[3]
+        thumbnail_url = coffee_shop[3]
 #         near_coffee_shop_location = "106台北市大安區永康街37巷28號"
 #         near_coffee_shop_dic = get_nearest_coffee_shop(near_coffee_shop_location)
 #         lat = near_coffee_shop_dic['lat']
@@ -244,7 +245,7 @@ def handle_message(event):
         buttons_template_message = TemplateSendMessage(
         alt_text = '附近店家',
         template=ButtonsTemplate(
-            thumbnail_image_url = thumbnail_image_url,
+            thumbnail_image_url = thumbnail_url,
             title = coffee_name,
             text = "評分：" + coffee_rating,
             actions = [
