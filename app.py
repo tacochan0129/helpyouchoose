@@ -223,31 +223,30 @@ def handle_message(event):
         keyword = 'coffee'
         nearby_coffee = get_nearby_places(lat, lng, radius, keyword)
 
-        if nearby_coffee:
-            nearest_coffee_shop = nearby_coffee[0]
-            photo_ref = nearest_coffee_shop['photos'][0]['photo_reference']
-            photo_width = nearest_coffee_shop['photos'][0]['width']
-            thumbnail_image_url = f"https://maps.googleapis.com/maps/api/place/photo?key={GOOGLE_API_KEY}&photoreference={photo_ref}&maxwidth={photo_width}"
-            nearest_coffee_details = get_place_details(nearest_coffee_shop['place_id'])
-            coffee_name = nearest_coffee_details['name']
-            coffee_rating = nearest_coffee_details['rating']
-            maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
+        nearest_coffee_shop = nearby_coffee[0]
+        photo_ref = nearest_coffee_shop['photos'][0]['photo_reference']
+        photo_width = nearest_coffee_shop['photos'][0]['width']
+        thumbnail_image_url = f"https://maps.googleapis.com/maps/api/place/photo?key={GOOGLE_API_KEY}&photoreference={photo_ref}&maxwidth={photo_width}"
+        nearest_coffee_details = get_place_details(nearest_coffee_shop['place_id'])
+        coffee_name = nearest_coffee_details['name']
+        coffee_rating = nearest_coffee_details['rating']
+        maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
 
-            buttons_template_message = TemplateSendMessage(
-            alt_text = '附近店家',
-            template=ButtonsTemplate(
-                thumbnail_image_url = thumbnail_image_url,
-                title = coffee_name,
-                text = "評分：" + coffee_rating,
-                actions = [
-                    URIAction(
-                        label = '現在就過去吧！',
-                        uri = maps_url
-                    )
-                ]
-            )
+        buttons_template_message = TemplateSendMessage(
+        alt_text = '附近店家',
+        template=ButtonsTemplate(
+            thumbnail_image_url = thumbnail_image_url,
+            title = coffee_name,
+            text = "評分：" + coffee_rating,
+            actions = [
+                URIAction(
+                    label = '現在就過去吧！',
+                    uri = maps_url
+                )
+            ]
         )
-            line_bot_api.reply_message(event.reply_token, buttons_template_message)        
+    )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)        
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
 
