@@ -233,7 +233,7 @@ def handle_message(event):
 #         maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
         coffee_name = "Cafefe Libero"
         coffee_rating = "4.2"
-        thumbnail_iamge_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
+        thumbnail_image_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
         maps_url = "https://www.google.com.tw/maps/place/SECOND+FLOOR+CAFE+%E8%B2%B3%E6%A8%93%E4%BB%81%E6%84%9B/@25.0379115,121.5236378,15z/data=!3m1!5s0x3442a97ebf47ca7b:0x6fe70de6eeb4a6e4!4m6!3m5!1s0x3442a97ebf69e67b:0xf06276ea3de8b70!8m2!3d25.0379126!4d121.5323917!16s%2Fg%2F12hk8x73m"
         buttons_template_message = TemplateSendMessage(
         alt_text = '附近店家',
