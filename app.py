@@ -26,10 +26,18 @@ csv_reader = csv.DictReader(cf)
 cf_row = [row for row in csv_reader]
 cf.close()
 
+# 將咖啡廳輪盤每次抽出的結果，存在list中
 name_list, text_list = [], []
 map_list, pic_list = [], []
 thumb_list = []
 
+# 附近店家功能
+from gps import *
+
+near_coffee_shop_location = "106台北市大安區永康街37巷28號"
+near_coffee_shop_dic = get_nearest_coffee_shop(near_coffee_shop_location)
+lat = near_coffee_shop_dic['lat']
+lng = near_coffee_shop_dic['lng']
 
 # 放上自己的Channel Access Token
 line_bot_api = LineBotApi('YeDTarsdKiytdqoOC7qQIl/JjhRCNK3UTSj5rUT4vguYoCgASBdMutqc/2yQUdgWf68PJSrqegY9JRm9p97kKu0e3M3BgyTqiWBFdnY5Ugl0huQrHvUbGRqUKa/xhJAJjTMO3rD/rYOcbl5IyKunvAdB04t89/1O/w1cDnyilFU=')
@@ -62,18 +70,6 @@ def callback():
 def handle_message(event):
     message = text=event.message.text
          
-    
-#     #將名稱、敘述、GoogleMaps連結、圖片存進functions
-#     def name(cafe_num):
-#        return cafe_num['咖啡廳名稱']
-#     def text(cafe_num):
-#         return cafe_num['敘述']
-#     def gmap(cafe_num):
-#         return cafe_num['GoogleMaps']
-#     def pic(cafe_num):
-#         return cafe_num['圖片1']
-#     def thumb(cafe_num):
-#         return cafe_num['封面']
     def clear_list():
         name_list.clear()
         text_list.clear()
@@ -87,26 +83,6 @@ def handle_message(event):
     cafe2 = cf_random[1]
     cafe3 = cf_random[2]   
 
-#        #將名稱、敘述、GoogleMaps連結、圖片存進變數
-#         name1 = cafe1['咖啡廳名稱']
-#         name2 = cafe2['咖啡廳名稱']
-#         name3 = cafe3['咖啡廳名稱']
-        
-#         text1 = cafe1['敘述']
-#         text2 = cafe2['敘述']
-#         text3 = cafe3['敘述']
-        
-#         map1 = cafe1['GoogleMaps']
-#         map2 = cafe2['GoogleMaps']
-#         map3 = cafe3['GoogleMaps']
-        
-#         pic1 = cafe1['圖片1']
-#         pic2 = cafe2['圖片1']
-#         pic3 = cafe3['圖片1']
-        
-#         thumb1 = cafe1['封面']
-#         thumb2 = cafe2['封面']
-#         thumb3 = cafe3['封面']
     if re.match('咖啡廳輪盤',message):
         #將名稱、敘述、GoogleMaps連結、圖片存進變數
         name1, name2, name3 = cafe1['咖啡廳名稱'], cafe2['咖啡廳名稱'], cafe3['咖啡廳名稱']
@@ -236,6 +212,43 @@ def handle_message(event):
         )
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        
+    # 附近店家功能
+    if re.match('附近店家',message):
+        line_bot_api.reply_message(event.reply_token, TextSendMessage('請傳送指定的位置喔~'))
+    if event.message.type == "location:
+        address = event.message.address
+        
+    # set
+    radius = 100
+    keyword = 'coffee'
+    nearby_coffee = get_nearby_places(lat, lng, radius, keyword)
+
+    if nearby_coffee:
+        nearest_coffee_shop = nearby_coffee[0]
+        photo_ref = nearest_coffee_shop['photos'][0]['photo_reference']
+        photo_width = nearest_coffee_shop['photos'][0]['width']
+        thumbnail_image_url = f"https://maps.googleapis.com/maps/api/place/photo?key={GOOGLE_API_KEY}&photoreference={photo_ref}&maxwidth={photo_width}"
+        nearest_coffee_details = get_place_details(nearest_coffee_shop['place_id'])
+        coffee_name = nearest_coffee_details['name']
+        coffee_rating = nearest_coffee_details['rating']
+        maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
+        
+        buttons_template_message = TemplateSendMessage(
+        alt_text = '隨便啦',
+        template=ButtonsTemplate(
+            thumbnail_image_url = thumbnail_image_url,
+            title = coffee_name,
+            text = coffee_rating,
+            actions = [
+                URIAction(
+                    label = '現在就過去吧！',
+                    uri = maps_url
+                )
+            ]
+        )
+    )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)        
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
 
