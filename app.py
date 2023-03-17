@@ -240,23 +240,23 @@ def handle_message(event):
 #         coffee_rating = "4.2"
 #         thumbnail_image_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
 #         maps_url = "https://www.google.com.tw/maps/place/SECOND+FLOOR+CAFE+%E8%B2%B3%E6%A8%93%E4%BB%81%E6%84%9B/@25.0379115,121.5236378,15z/data=!3m1!5s0x3442a97ebf47ca7b:0x6fe70de6eeb4a6e4!4m6!3m5!1s0x3442a97ebf69e67b:0xf06276ea3de8b70!8m2!3d25.0379126!4d121.5323917!16s%2Fg%2F12hk8x73m"
-#         buttons_template_message = TemplateSendMessage(
-#         alt_text = '附近店家',
-#         template=ButtonsTemplate(
-#             thumbnail_image_url = thumbnail_image_url,
-#             title = coffee_name,
-#             text = "評分：" + coffee_rating,
-#             actions = [
-#                 URIAction(
-#                     label = '現在就過去吧！',
-#                     uri = maps_url
-#                 )
-#             ]
-#         )
-#     )
-#         line_bot_api.reply_message(event.reply_token, buttons_template_message)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(coffee_name))
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
+        buttons_template_message = TemplateSendMessage(
+        alt_text = '附近店家',
+        template=ButtonsTemplate(
+            thumbnail_image_url = thumbnail_image_url,
+            title = coffee_name,
+            text = "評分：" + str(coffee_rating),
+            actions = [
+                URIAction(
+                    label = '現在就過去吧！',
+                    uri = maps_url
+                )
+            ]
+        )
+    )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+#         line_bot_api.reply_message(event.reply_token, TextSendMessage(coffee_name))
+#         line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
 
