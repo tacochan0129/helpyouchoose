@@ -31,7 +31,7 @@ thumb_list = []
 
 # 附近店家功能
 from gps import *
-import rungps
+from rungps import *
 
 # 放上自己的Channel Access Token
 line_bot_api = LineBotApi('YeDTarsdKiytdqoOC7qQIl/JjhRCNK3UTSj5rUT4vguYoCgASBdMutqc/2yQUdgWf68PJSrqegY9JRm9p97kKu0e3M3BgyTqiWBFdnY5Ugl0huQrHvUbGRqUKa/xhJAJjTMO3rD/rYOcbl5IyKunvAdB04t89/1O/w1cDnyilFU=')
@@ -229,11 +229,11 @@ def handle_message(event):
 #             coffee_name = nearest_coffee_details['name']
 #             coffee_rating = nearest_coffee_details['rating']
 #             maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
-#         coffee_shop = nearest_coffee("新北市新莊區民樂街39號")
-#         coffee_name = coffee_shop[0]
-#         coffee_rating = str(coffee_shop[1])
-#         maps_url = coffee_shop[2]
-#         thumbnail_url = coffee_shop[3]
+        coffee_shop = nearest_coffee("新北市新莊區民樂街39號")
+        coffee_name = coffee_shop[0]
+        coffee_rating = str(coffee_shop[1])
+        maps_url = coffee_shop[2]
+        thumbnail_url = coffee_shop[3]
 #         coffee_name = "Cafefe Libero"
 #         coffee_rating = "4.2"
 #         thumbnail_image_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
@@ -253,7 +253,7 @@ def handle_message(event):
 #         )
 #     )
 #         line_bot_api.reply_message(event.reply_token, buttons_template_message)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="123"))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=coffee))
 #         line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
