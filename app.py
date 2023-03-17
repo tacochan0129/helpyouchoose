@@ -245,7 +245,7 @@ def handle_message(event):
         template=ButtonsTemplate(
             thumbnail_image_url = thumbnail_url,
             title = coffee_name,
-            text = "評分：" + str(coffee_rating),
+            text = "評分：" + coffee_rating,
             actions = [
                 URIAction(
                     label = '現在就過去吧！',
