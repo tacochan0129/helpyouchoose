@@ -236,7 +236,6 @@ def handle_message(event):
         coffee_rating = str(coffee_shop[1])
         maps_url = coffee_shop[2]
         thumbnail_url = coffee_shop[3]
-        var = coffee_name + "評分：" + coffee_rating + "maps_url：" + maps_url 
 #         coffee_name = "Cafefe Libero"
 #         coffee_rating = "4.2"
 #         thumbnail_image_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
@@ -256,7 +255,7 @@ def handle_message(event):
 #         )
 #     )
 #         line_bot_api.reply_message(event.reply_token, buttons_template_message)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(var))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(coffee_name))
 #         line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
