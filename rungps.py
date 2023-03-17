@@ -4,19 +4,19 @@ from gps import *
 def algorithm(location, coffee):
     i = 0
     distance_list = []
-    distance_dic = {}
+#     distance_dic = {}
     while True:
         if i == len(coffee):
             break
-        temp_name = get_place_details(coffee[i]['place_id'])['name']
+#         temp_name = get_place_details(coffee[i]['place_id'])['name']
         cf_lat, cf_lng = coffee[i]['geometry']['location']['lat'], coffee[i]['geometry']['location']['lng']
         user_lat, user_lng = users_loc(location)['lat'], users_loc(location)['lng']
         temp_distance = haversine(user_lat, user_lng, cf_lat, cf_lng)
         distance_list.append(temp_distance)
-        distance_dic[temp_name] = temp_distance
+#         distance_dic[temp_name] = temp_distance
         i += 1
     nearest_cf_index = distance_list.index(min(distance_list))
-    print(distance_dic)
+#     print(distance_dic)
     return nearest_cf_index
 
 def nearest_coffee(location):
