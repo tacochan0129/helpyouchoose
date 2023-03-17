@@ -120,9 +120,7 @@ def handle_message(event):
             )
         )
         line_bot_api.reply_message(event.reply_token, image_carousel_template_message)
-#     if re.match('附近店家',message):
-#         line_bot_api.reply_message(event.reply_token, TextSendMessage('此功能尚未完善唷！\n敬請期待🤗'))
-    
+
     if re.match('我選第一張',message):
         if name_list == []:
             line_bot_api.reply_message(event.reply_token, TextSendMessage('不能反悔唷😥\n若要重新一輪，請點選"咖啡廳輪盤"以開啟新的一輪喔！'))
@@ -231,11 +229,11 @@ def handle_message(event):
 #             coffee_name = nearest_coffee_details['name']
 #             coffee_rating = nearest_coffee_details['rating']
 #             maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
-        coffee_shop = nearest_coffee("新北市新莊區民樂街39號")
-        coffee_name = coffee_shop[0]
-        coffee_rating = str(coffee_shop[1])
-        maps_url = coffee_shop[2]
-        thumbnail_url = coffee_shop[3]
+#         coffee_shop = nearest_coffee("新北市新莊區民樂街39號")
+#         coffee_name = coffee_shop[0]
+#         coffee_rating = str(coffee_shop[1])
+#         maps_url = coffee_shop[2]
+#         thumbnail_url = coffee_shop[3]
 #         coffee_name = "Cafefe Libero"
 #         coffee_rating = "4.2"
 #         thumbnail_image_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
