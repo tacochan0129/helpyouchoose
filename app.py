@@ -58,6 +58,15 @@ def callback():
 
     return 'OK'
 
+from linebot.models import LocationMessage
+
+# handle location message event
+@handler.add(MessageEvent, message=LocationMessage)
+def handle_location_message(event):
+    address = event.message.address
+    return address
+
+
 #訊息傳遞區塊
 ##### 基本上程式編輯都在這個function #####
 @handler.add(MessageEvent, message=TextMessage)
@@ -209,7 +218,7 @@ def handle_message(event):
     if re.match('附近店家',message):
         line_bot_api.reply_message(event.reply_token, TextSendMessage('請傳送指定的位置喔~'))
     if event.message.type == 'location':
-        address = event.message.address
+        location = handle_location_message(event)
 #         near_coffee_shop_location = 
 #         near_coffee_shop_dic = get_nearest_coffee_shop(near_coffee_shop_location)
 #         lat = near_coffee_shop_dic['lat']
@@ -228,7 +237,7 @@ def handle_message(event):
 #             coffee_name = nearest_coffee_details['name']
 #             coffee_rating = nearest_coffee_details['rating']
 #             maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
-        coffee_shop = nearest_coffee(address)
+        coffee_shop = nearest_coffee(location)
         coffee_name = coffee_shop[0]
         coffee_rating = str(coffee_shop[1])
         maps_url = coffee_shop[2]
@@ -251,8 +260,8 @@ def handle_message(event):
             ]
         )
     )
-#         line_bot_api.reply_message(event.reply_token, buttons_template_message)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=address))
+        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+#         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=address))
 #         line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
