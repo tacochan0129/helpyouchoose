@@ -28,7 +28,7 @@ def nearest_coffee(location):
     radius = 500
     keyword = 'coffee'
     nearby_coffee = get_nearby_places(lat, lng, radius, keyword)
-    j = 0
+
 
     if nearby_coffee:
         nearest_coffee_shop = nearby_coffee[algorithm(location, nearby_coffee)]
