@@ -1,4 +1,18 @@
 from gps import *
+import os
+import requests
+from linebot.models import TextSendMessage, LocationSendMessage, TemplateSendMessage, CarouselTemplate, CarouselColumn
+
+# function to get the address from the LocationMessage event
+def get_address(event):
+    latitude = event.message.latitude
+    longitude = event.message.longitude
+    url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longitude}&key={GOOGLE_API_KEY}"
+    response = requests.get(url).json()
+    if response['status'] == 'OK':
+        return response['results'][0]['formatted_address']
+    else:
+        return None
 
 
 def algorithm(location, coffee):
