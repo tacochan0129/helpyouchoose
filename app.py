@@ -255,7 +255,7 @@ def handle_message(event):
 #         )
 #     )
 #         line_bot_api.reply_message(event.reply_token, buttons_template_message)
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(coffee_name))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=coffee_name))
 #         line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
