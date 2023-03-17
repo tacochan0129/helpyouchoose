@@ -57,15 +57,7 @@ def callback():
         abort(400)
 
     return 'OK'
-@csrf_exempt
-def callback(request):
-    if request.method == 'POST':
-        message=[]
-        signature = request.META['HTTP_X_LINE_SIGNATURE']
-        
-        #這邊的body即為webhook內容
-        body = request.body.decode('utf-8')
-        print(body)
+
 #訊息傳遞區塊
 ##### 基本上程式編輯都在這個function #####
 @handler.add(MessageEvent, message=TextMessage)
@@ -266,6 +258,7 @@ def handle_message(event):
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
 
+#主程式
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
