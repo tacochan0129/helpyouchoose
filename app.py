@@ -67,9 +67,12 @@ def get_address(event):
     url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longitude}&key={os.environ[GOOGLE_API_KEY]}"
     response = requests.get(url).json()
     if response['status'] == 'OK':
-        return response['results'][0]['formatted_address']
+        address = response['results'][0]['formatted_address']
     else:
-        return None
+        address = None
+    reply_message = TextSendMessage(text=address)
+#     line_bot_api.reply_message(event.reply_token, buttons_template_message)
+    line_bot_api.reply_message(event.reply_token, reply_message)
 
 # handle location message event
 @handler.add(MessageEvent, message=LocationMessage)
