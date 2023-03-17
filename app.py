@@ -210,7 +210,6 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, TextSendMessage('請傳送指定的位置喔~'))
     if event.message.type == 'location':
         address = event.message.address
-
 #         near_coffee_shop_location = 
 #         near_coffee_shop_dic = get_nearest_coffee_shop(near_coffee_shop_location)
 #         lat = near_coffee_shop_dic['lat']
@@ -252,8 +251,8 @@ def handle_message(event):
             ]
         )
     )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)
-#         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=coffee_name))
+#         line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=address))
 #         line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
