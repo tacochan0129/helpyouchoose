@@ -58,13 +58,67 @@ def callback():
 
     return 'OK'
 
-from linebot.models import LocationMessage
+# function to get the address from the LocationMessage event
+def get_address(event):
+    latitude = event.message.latitude
+    longitude = event.message.longitude
+    url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longitude}&key={os.environ[GOOGLE_API_KEY]}"
+    response = requests.get(url).json()
+    if response['status'] == 'OK':
+        return response['results'][0]['formatted_address']
+    else:
+        return None
 
-# # handle location message event
-# @handler.add(MessageEvent, message=LocationMessage)
-# def handle_location_message(event):
-#     address = event.message.address
-#     return address
+from linebot.models import LocationMessage
+# handle location message event
+@handler.add(MessageEvent, message=LocationMessage)
+def handle_location_message(event):
+    address = get_address(event)
+        # 附近店家功能
+#         near_coffee_shop_location = 
+#         near_coffee_shop_dic = get_nearest_coffee_shop(near_coffee_shop_location)
+#         lat = near_coffee_shop_dic['lat']
+#         lng = near_coffee_shop_dic['lng']        
+#         # set
+#         radius = 100
+#         keyword = 'coffee'
+#         nearby_coffee = get_nearby_places(lat, lng, radius, keyword)
+
+#         if nearby_coffee:
+#             nearest_coffee_shop = nearby_coffee[0]
+#             photo_ref = nearest_coffee_shop['photos'][0]['photo_reference']
+#             photo_width = nearest_coffee_shop['photos'][0]['width']
+#             thumbnail_image_url = f"https://maps.googleapis.com/maps/api/place/photo?key={GOOGLE_API_KEY}&photoreference={photo_ref}&maxwidth={photo_width}"
+#             nearest_coffee_details = get_place_details(nearest_coffee_shop['place_id'])
+#             coffee_name = nearest_coffee_details['name']
+#             coffee_rating = nearest_coffee_details['rating']
+#             maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
+    coffee_shop = nearest_coffee(address)
+    coffee_name = coffee_shop[0]
+    coffee_rating = str(coffee_shop[1])
+    maps_url = coffee_shop[2]
+    thumbnail_url = coffee_shop[3]
+#         coffee_name = "Cafefe Libero"
+#         coffee_rating = "4.2"
+#         thumbnail_image_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
+#         maps_url = "https://www.google.com.tw/maps/place/SECOND+FLOOR+CAFE+%E8%B2%B3%E6%A8%93%E4%BB%81%E6%84%9B/@25.0379115,121.5236378,15z/data=!3m1!5s0x3442a97ebf47ca7b:0x6fe70de6eeb4a6e4!4m6!3m5!1s0x3442a97ebf69e67b:0xf06276ea3de8b70!8m2!3d25.0379126!4d121.5323917!16s%2Fg%2F12hk8x73m"
+    buttons_template_message = TemplateSendMessage(
+    alt_text = '附近店家',
+    template=ButtonsTemplate(
+        thumbnail_image_url = thumbnail_url,
+        title = coffee_name,
+        text = "評分：" + coffee_rating,
+        actions = [
+            URIAction(
+                label = '現在就過去吧！',
+                uri = maps_url
+            )
+        ]
+    )
+)
+    line_bot_api.reply_message(event.reply_token, buttons_template_message)
+#         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=address))
+#         line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
 
 
 #訊息傳遞區塊
@@ -213,67 +267,9 @@ def handle_message(event):
         )
     )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
-        
-    # 附近店家功能
     if re.match('附近店家',message):
         line_bot_api.reply_message(event.reply_token, TextSendMessage('請傳送指定的位置喔~'))
-    # function to get the address from the LocationMessage event
-    def get_address(event):
-        latitude = event.message.latitude
-        longitude = event.message.longitude
-        url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longitude}&key={os.environ[GOOGLE_API_KEY]}"
-        response = requests.get(url).json()
-        if response['status'] == 'OK':
-            return response['results'][0]['formatted_address']
-        else:
-            return None
-#         near_coffee_shop_location = 
-#         near_coffee_shop_dic = get_nearest_coffee_shop(near_coffee_shop_location)
-#         lat = near_coffee_shop_dic['lat']
-#         lng = near_coffee_shop_dic['lng']        
-#         # set
-#         radius = 100
-#         keyword = 'coffee'
-#         nearby_coffee = get_nearby_places(lat, lng, radius, keyword)
-
-#         if nearby_coffee:
-#             nearest_coffee_shop = nearby_coffee[0]
-#             photo_ref = nearest_coffee_shop['photos'][0]['photo_reference']
-#             photo_width = nearest_coffee_shop['photos'][0]['width']
-#             thumbnail_image_url = f"https://maps.googleapis.com/maps/api/place/photo?key={GOOGLE_API_KEY}&photoreference={photo_ref}&maxwidth={photo_width}"
-#             nearest_coffee_details = get_place_details(nearest_coffee_shop['place_id'])
-#             coffee_name = nearest_coffee_details['name']
-#             coffee_rating = nearest_coffee_details['rating']
-#             maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
-        address = get_address(event)
-        coffee_shop = nearest_coffee(address)
-        coffee_name = coffee_shop[0]
-        coffee_rating = str(coffee_shop[1])
-        maps_url = coffee_shop[2]
-        thumbnail_url = coffee_shop[3]
-#         coffee_name = "Cafefe Libero"
-#         coffee_rating = "4.2"
-#         thumbnail_image_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
-#         maps_url = "https://www.google.com.tw/maps/place/SECOND+FLOOR+CAFE+%E8%B2%B3%E6%A8%93%E4%BB%81%E6%84%9B/@25.0379115,121.5236378,15z/data=!3m1!5s0x3442a97ebf47ca7b:0x6fe70de6eeb4a6e4!4m6!3m5!1s0x3442a97ebf69e67b:0xf06276ea3de8b70!8m2!3d25.0379126!4d121.5323917!16s%2Fg%2F12hk8x73m"
-        buttons_template_message = TemplateSendMessage(
-        alt_text = '附近店家',
-        template=ButtonsTemplate(
-            thumbnail_image_url = thumbnail_url,
-            title = coffee_name,
-            text = "評分：" + coffee_rating,
-            actions = [
-                URIAction(
-                    label = '現在就過去吧！',
-                    uri = maps_url
-                )
-            ]
-        )
-    )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)
-#         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=address))
-#         line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
-    else:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage('感謝您的使用❤️'))
+        
 
 #主程式
 import os
