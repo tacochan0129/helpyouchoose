@@ -64,7 +64,7 @@ from linebot.models import TextSendMessage, LocationSendMessage, TemplateSendMes
 def get_address(event):
     latitude = event.message.latitude
     longitude = event.message.longitude
-    url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longitude}&key={os.environ[GOOGLE_API_KEY]}"
+    url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longitude}&key={GOOGLE_API_KEY}"
     response = requests.get(url).json()
     if response['status'] == 'OK':
         return response['results'][0]['formatted_address']
@@ -74,9 +74,8 @@ def get_address(event):
 # handle location message event
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location_message(event):
-    if event.message.type == 'location':
-        address = get_address(event)
-        # 附近店家功能
+    address = get_address(event)
+    # 附近店家功能
 #         near_coffee_shop_location = 
 #         near_coffee_shop_dic = get_nearest_coffee_shop(near_coffee_shop_location)
 #         lat = near_coffee_shop_dic['lat']
@@ -95,33 +94,33 @@ def handle_location_message(event):
 #             coffee_name = nearest_coffee_details['name']
 #             coffee_rating = nearest_coffee_details['rating']
 #             maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
-        coffee_shop = nearest_coffee(address)
-        coffee_name = coffee_shop[0]
-        coffee_rating = str(coffee_shop[1])
-        maps_url = coffee_shop[2]
-        thumbnail_url = coffee_shop[3]
+    coffee_shop = nearest_coffee(address)
+    coffee_name = coffee_shop[0]
+    coffee_rating = str(coffee_shop[1])
+    maps_url = coffee_shop[2]
+    thumbnail_url = coffee_shop[3]
 #         coffee_name = "Cafefe Libero"
 #         coffee_rating = "4.2"
 #         thumbnail_image_url = "https://play-lh.googleusercontent.com/Kf8WTct65hFJxBUDm5E-EpYsiDoLQiGGbnuyP6HBNax43YShXti9THPon1YKB6zPYpA"
 #         maps_url = "https://www.google.com.tw/maps/place/SECOND+FLOOR+CAFE+%E8%B2%B3%E6%A8%93%E4%BB%81%E6%84%9B/@25.0379115,121.5236378,15z/data=!3m1!5s0x3442a97ebf47ca7b:0x6fe70de6eeb4a6e4!4m6!3m5!1s0x3442a97ebf69e67b:0xf06276ea3de8b70!8m2!3d25.0379126!4d121.5323917!16s%2Fg%2F12hk8x73m"
-        buttons_template_message = TemplateSendMessage(
-        alt_text = '附近店家',
-        template=ButtonsTemplate(
-            thumbnail_image_url = thumbnail_url,
-            title = coffee_name,
-            text = "評分：" + coffee_rating,
-            actions = [
-                URIAction(
-                    label = '現在就過去吧！',
-                    uri = maps_url
-                )
-            ]
-        )
+    buttons_template_message = TemplateSendMessage(
+    alt_text = '附近店家',
+    template=ButtonsTemplate(
+        thumbnail_image_url = thumbnail_url,
+        title = coffee_name,
+        text = "評分：" + coffee_rating,
+        actions = [
+            URIAction(
+                label = '現在就過去吧！',
+                uri = maps_url
+            )
+        ]
     )
+)
 #         reply_message = TextSendMessage(text=address)
-        line_bot_api.reply_message(event.reply_token, buttons_template_message)
+    line_bot_api.reply_message(event.reply_token, buttons_template_message)
 #         line_bot_api.reply_message(event.reply_token, reply_message)
-    #     line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
+#     line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
 
 
 #訊息傳遞區塊
