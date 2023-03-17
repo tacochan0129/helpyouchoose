@@ -1,16 +1,31 @@
 from gps import *
 
+
+def algorithm(location, coffee):
+    i = 0
+    distance_list = []
+    while True:
+        if i == len(coffee):
+            break
+        cf_lat, cf_lng = coffee[i]['geometry']['location']['lat'], coffee[i]['geometry']['location']['lng']
+        user_lat, user_lng = users_loc(location)['lat'], users_loc(location)['lng']
+        temp_distance = haversine(user_lat, user_lng, cf_lat, cf_lng)
+        distance_list.append(temp_distance)
+        i += 1
+    nearest_cf_index = distance_list.index(min(distance_list))
+    return nearest_cf_index
+
 def nearest_coffee(location):
-    near_coffee_shop_dic = get_nearest_coffee_shop(location)
+    near_coffee_shop_dic = users_loc(location)
     lat = near_coffee_shop_dic['lat']
     lng = near_coffee_shop_dic['lng']
     # set
-    radius = 100
+    radius = 1000
     keyword = 'coffee'
     nearby_coffee = get_nearby_places(lat, lng, radius, keyword)
 
     if nearby_coffee:
-        nearest_coffee_shop = nearby_coffee[0]
+        nearest_coffee_shop = nearby_coffee[algorithm(location, nearby_coffee)]
         photo_ref = nearest_coffee_shop['photos'][0]['photo_reference']
         photo_width = nearest_coffee_shop['photos'][0]['width']
         thumbnail_image_url = f"https://maps.googleapis.com/maps/api/place/photo?key={GOOGLE_API_KEY}&photoreference={photo_ref}&maxwidth={photo_width}"
@@ -26,6 +41,3 @@ def nearest_coffee(location):
     else:
         # print('No nearby places found.')
         return 0
-
-# coffee_shop = nearest_coffee("106台北市大安區永康街37巷28號")
-
