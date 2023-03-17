@@ -50,17 +50,34 @@
 # print(nearest_coffee_GoogleMaps)
 
 import requests
-import os
+from math import radians, cos, sin, asin, sqrt
 
 GOOGLE_API_KEY = "AIzaSyA2ReggIbRz5s1zFCDyxXcnwXRWHucFJug"
 
-def get_nearest_coffee_shop(location):
+# calculate the "nearest" coffee shop!
+def haversine(lat1, lon1, lat2, lon2):
+    """
+    Calculate the great circle distance between two points 
+    on the earth (specified in decimal degrees)
+    """
+    # convert decimal degrees to radians 
+    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+
+    # haversine formula 
+    dlon = lon2 - lon1 
+    dlat = lat2 - lat1 
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * asin(sqrt(a)) 
+    r = 6371 # Radius of earth in kilometers. Use 3956 for miles
+    return c * r
+
+def users_loc(location):
     # Use the Google Geocoding API to convert the location into coordinates
     geocoding_url = f'https://maps.googleapis.com/maps/api/geocode/json?address={location}&key={GOOGLE_API_KEY}'
     geocoding_response = requests.get(geocoding_url).json()
     lat = geocoding_response['results'][0]['geometry']['location']['lat']
     lng = geocoding_response['results'][0]['geometry']['location']['lng']
-    # print("Latituded:", latitude, "Longitude:", longitude) Our location
+    # lat & lng here will be the user's current location
     return {'lat': lat, 'lng': lng}
 
 def get_nearby_places(lat, lng, radius, keyword):
