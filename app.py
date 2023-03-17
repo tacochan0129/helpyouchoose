@@ -60,11 +60,11 @@ def callback():
 
 from linebot.models import LocationMessage
 
-# handle location message event
-@handler.add(MessageEvent, message=LocationMessage)
-def handle_location_message(event):
-    address = event.message.address
-    return address
+# # handle location message event
+# @handler.add(MessageEvent, message=LocationMessage)
+# def handle_location_message(event):
+#     address = event.message.address
+#     return address
 
 
 #訊息傳遞區塊
@@ -217,8 +217,16 @@ def handle_message(event):
     # 附近店家功能
     if re.match('附近店家',message):
         line_bot_api.reply_message(event.reply_token, TextSendMessage('請傳送指定的位置喔~'))
-    if event.message.type == 'location':
-        location = handle_location_message(event)
+    # function to get the address from the LocationMessage event
+    def get_address(event):
+        latitude = event.message.latitude
+        longitude = event.message.longitude
+        url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={latitude},{longitude}&key={os.environ[GOOGLE_API_KEY]}"
+        response = requests.get(url).json()
+        if response['status'] == 'OK':
+            return response['results'][0]['formatted_address']
+        else:
+            return None
 #         near_coffee_shop_location = 
 #         near_coffee_shop_dic = get_nearest_coffee_shop(near_coffee_shop_location)
 #         lat = near_coffee_shop_dic['lat']
@@ -237,7 +245,8 @@ def handle_message(event):
 #             coffee_name = nearest_coffee_details['name']
 #             coffee_rating = nearest_coffee_details['rating']
 #             maps_url = f'https://www.google.com/maps/search/?api=1&query={lat},{lng}&query_place_id={nearest_coffee_shop["place_id"]}'
-        coffee_shop = nearest_coffee(location)
+        address = get_address(event)
+        coffee_shop = nearest_coffee(address)
         coffee_name = coffee_shop[0]
         coffee_rating = str(coffee_shop[1])
         maps_url = coffee_shop[2]
