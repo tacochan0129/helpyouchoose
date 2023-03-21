@@ -119,8 +119,7 @@ def handle_location_message(event):
 )
 #         reply_message = TextSendMessage(text=address)
     line_bot_api.reply_message(event.reply_token, buttons_template_message)
-#         line_bot_api.reply_message(event.reply_token, reply_message)
-#     line_bot_api.reply_message(event.reply_token, TextSendMessage(maps_url))
+
 
 
 #訊息傳遞區塊
